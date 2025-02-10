@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Bus Tracking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>svit College Bus Tracking</h1>
+
+        <!-- Announcements Section -->
+        <h2>Announcements</h2>
+        <div id="announcementDisplay">No announcements yet.</div>
+
+        <!-- Login Section -->
+        <h2>Login</h2>
+        <label for="userType">Select User Type:</label>
+        <select id="userType">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="driver">Driver</option>
+        </select>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <script>
+        function displayAnnouncement() {
+            let announcement = localStorage.getItem("announcement") || "No announcements yet.";
+            document.getElementById("announcementDisplay").innerText = announcement;
+        }
+
+        function login() {
+            let userType = document.getElementById("userType").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (userType === "student" && username === "student" && password === "1234") {
+                window.location.href = "student.html";
+            } else if (userType === "admin" && username === "admin" && password === "admin123") {
+                window.location.href = "management.html";
+            } else if (userType === "driver" && username.startsWith("driver") && password === "driverpass") {
+                localStorage.setItem("driverID", username); // Store driver ID for tracking
+                window.location.href = "driver_tracking.html";
+            } else {
+                alert("Invalid login details!");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", displayAnnouncement);
+    </script>
+</body>
+</html>
